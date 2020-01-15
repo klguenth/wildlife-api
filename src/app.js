@@ -16,9 +16,9 @@ const morganOption = (NODE_ENV === 'production')
   ? 'tiny'
   : 'common';
 
-const knexInstance = knex({
-client: 'pg',
-connection: process.env.DB_URL,
+const db = knex({
+    client: 'pg',
+    connection: process.env.DB_URL,
 })
 console.log('knex and driver installed correctly');
 
@@ -30,9 +30,6 @@ app.use(cors())
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 
-app.get('/', (req, res) => {
-    res.send('Hello, world!')
-})
 app.get('/users', (req, res, next) => {
     UsersService.hasUserWithUserName(/*knex instance here*/)
         .then(user => {
