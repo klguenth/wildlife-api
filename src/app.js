@@ -5,7 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const usersRouter = require('./users-router');
+const UsersService = require('./users-service.js');
 const authRouter = require('./auth-router');
+const AuthService = require('./auth-service.js');
 const knex = require('knex');
 
 const app = express()
@@ -15,10 +17,12 @@ const morganOption = (NODE_ENV === 'production')
   : 'common';
 
 const knexInstance = knex({
-    client: 'pg',
-    connection: process.env.DB_URL,
+client: 'pg',
+connection: process.env.DB_URL,
 })
 console.log('knex and driver installed correctly');
+
+app.set('db', db)
 
 app.use(morgan(morganOption))
 app.use(helmet())
@@ -28,6 +32,13 @@ app.use('/api/auth', authRouter)
 
 app.get('/', (req, res) => {
     res.send('Hello, world!')
+})
+app.get('/users', (req, res, next) => {
+    UsersService.hasUserWithUserName(/*knex instance here*/)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(next)
 })
 
 app.use(function errorHandler(error, req, res, next) {
