@@ -1,19 +1,20 @@
 const bcrypt = require('bcryptjs')
 const xss = require('xss')
+const knex = require('knex')
 
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
 
 const UsersService = {
-  hasUserWithUserName(db, user_name) {
-    return db('blogful_users')
+  hasUserWithUserName(knex, user_name) {
+    return db('wildlife')
       .where({ user_name })
       .first()
       .then(user => !!user)
   },
-  insertUser(db, newUser) {
+  insertUser(knex, newUser) {
     return db
       .insert(newUser)
-      .into('blogful_users')
+      .into('wildlife')
       .returning('*')
       .then(([user]) => user)
   },

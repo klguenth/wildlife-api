@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const { NODE_ENV } = require('./config');
+const { NODE_ENV, PORT, DB_URL } = require('./config');
 const usersRouter = require('./users-router');
 const UsersService = require('./users-service.js');
 const authRouter = require('./auth-router');
@@ -31,7 +31,8 @@ app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 
 app.get('/users', (req, res, next) => {
-    UsersService.hasUserWithUserName(/*knex instance here*/)
+    const knexInstance = req.app.get('db')
+    UsersService.hasUserWithUserName(knexInstance)
         .then(user => {
             res.json(user)
         })
