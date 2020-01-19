@@ -5,6 +5,14 @@ const authRouter = express.Router();
 const jsonBodyParser = express.json();
 
 authRouter
+    .get('/users', (req, res, next) => {
+    const knexInstance = req.app.get('db')
+    UsersService.hasUserWithUserName(knexInstance, user_name)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(next)
+    })
     .post('/login', jsonBodyParser, (req, res, next) => {
         const { user_name, password } = req.body
         const loginUser = { user_name, password }
