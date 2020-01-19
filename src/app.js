@@ -30,14 +30,14 @@ app.use(cors())
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 
-app.get('/users', (req, res, next) => {
+/*app.get('/users', (req, res, next) => {
     const knexInstance = req.app.get('db')
     UsersService.hasUserWithUserName(knexInstance, user_name)
         .then(user => {
             res.json(user)
         })
         .catch(next)
-})
+})*/
 
 app.use(function errorHandler(error, req, res, next) {
     let response
