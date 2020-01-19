@@ -32,7 +32,7 @@ app.use('/api/auth', authRouter)
 
 app.get('/users', (req, res, next) => {
     const knexInstance = req.app.get('db')
-    UsersService.hasUserWithUserName(knexInstance)
+    UsersService.hasUserWithUserName(knexInstance, user_name)
         .then(user => {
             res.json(user)
         })

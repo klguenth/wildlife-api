@@ -5,8 +5,9 @@ const knex = require('knex')
 const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/
 
 const UsersService = {
-  hasUserWithUserName(knex, user_name) {
-    return db('wildlife')
+  hasUserWithUserName(db, user_name) {
+    return db
+      .from('wildlife')
       .where({ user_name })
       .first()
       .then(user => !!user)
