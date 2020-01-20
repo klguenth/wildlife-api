@@ -7,7 +7,7 @@ const REGEX_UPPER_LOWER_NUMBER_SPECIAL = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*
 const UsersService = {
   hasUserWithUserName(db, user_name) {
     return db
-      .from('wildlife')
+      .from('users')
       .where({ user_name })
       .first()
       .then(user => !!user)

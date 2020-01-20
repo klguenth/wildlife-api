@@ -6,6 +6,15 @@ const usersRouter = express.Router()
 const jsonBodyParser = express.json()
 
 usersRouter
+  .get('/', jsonBodyParser, (req, res, next) => {
+    const knexInstance = req.app.get('db')
+    const user_name = req.body
+    UsersService.hasUserWithUserName(knexInstance, user_name)
+        .then(user => {
+            res.json(user)
+        })
+        .catch(next)
+    })
   .post('/', jsonBodyParser, (req, res, next) => {
     const { password, user_name, full_name, nickname } = req.body
 

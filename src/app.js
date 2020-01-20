@@ -18,7 +18,7 @@ const morganOption = (NODE_ENV === 'production')
 
 const db = knex({
     client: 'pg',
-    connection: process.env.DB_URL,
+    connection: DB_URL,
 })
 console.log('knex and driver installed correctly');
 
