@@ -12,16 +12,16 @@ const UsersService = {
       .first()
       .then(user => !!user)
   },
-  insertUser(knex, newUser) {
+  insertUser(db, newUser) {
     return db
       .insert(newUser)
-      .into('wildlife')
+      .into('users')
       .returning('*')
       .then(([user]) => user)
   },
   validatePassword(password) {
-    if (password.length < 8) {
-      return 'Password be longer than 8 characters'
+    if (password.length < 3) {
+      return 'Password must be longer than 3 characters'
     }
     if (password.length > 72) {
       return 'Password be less than 72 characters'
@@ -42,7 +42,6 @@ const UsersService = {
       id: user.id,
       full_name: xss(user.full_name),
       user_name: xss(user.user_name),
-      nickname: xss(user.nick_name),
       date_created: new Date(user.date_created),
     }
   },

@@ -8,7 +8,7 @@ const jsonBodyParser = express.json()
 usersRouter
   .get('/', jsonBodyParser, (req, res, next) => {
     const knexInstance = req.app.get('db')
-    const user_name = req.body
+    //const user_name = req.body
     UsersService.hasUserWithUserName(knexInstance, user_name)
         .then(user => {
             res.json(user)
@@ -16,14 +16,14 @@ usersRouter
         .catch(next)
     })
   .post('/', jsonBodyParser, (req, res, next) => {
-    const { password, user_name, full_name, nickname } = req.body
-
-    for (const field of ['full_name', 'user_name', 'password'])
+    const { password, user_name, full_name } = req.body
+    console.log(req.body);
+    for (const field of ['full_name', 'user_name', 'password']) {
       if (!req.body[field])
         return res.status(400).json({
           error: `Missing '${field}' in request body`
         })
-
+    }
     // TODO: check user_name doesn't start with spaces
 
     const passwordError = UsersService.validatePassword(password)
@@ -45,7 +45,6 @@ usersRouter
               user_name,
               password: hashedPassword,
               full_name,
-              nickname,
               date_created: 'now()',
             }
 
