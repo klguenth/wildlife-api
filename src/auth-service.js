@@ -4,14 +4,14 @@ const config = require('./config');
 
 const AuthService = {
     getUserWithUserName(db, user_name) {
-        return db('wildlife_users')
+        return db('users')
             .where({ user_name })
             .first()
     },
     comparePasswords(password, hash) {
         return bcrypt.compare(password, hash)
     },
-    createJwd(subject, payload) {
+    createJwt(subject, payload) {
         return jwt.sign(payload, config.JWT_SECRET, {
             subject,
             algorithm: 'HS256',
