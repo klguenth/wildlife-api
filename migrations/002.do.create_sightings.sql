@@ -4,7 +4,7 @@ CREATE TABLE sightings (
     species TEXT NOT NULL,
     brief_description TEXT NOT NULL,
     detailed_description TEXT NOT NULL,
-    sighting_date DATE,
+    sighting_date DATE NOT NULL,
     sighting_location TEXT NOT NULL,
     user_id INTEGER REFERENCES users(user_id)
 );
