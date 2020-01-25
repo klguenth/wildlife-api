@@ -4,6 +4,6 @@ describe('App', () => {
   it('GET / responds with 200', () => {
     return supertest(app)
       .get('/')
-      .expect(404, 'Not found')
+      .expect('<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="utf-8">\n<title>Error</title>\n</head>\n<body>\n<pre>Cannot GET /</pre>\n</body>\n</html>\n')
   })
 })

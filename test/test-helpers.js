@@ -148,7 +148,7 @@ function makeUsersArray() {
     }
   }
   
-  function makeExpectedArticleComments(users, articleId, comments) {
+  /*function makeExpectedArticleComments(users, articleId, comments) {
     const expectedComments = comments
       .filter(comment => comment.article_id === articleId)
   
@@ -168,7 +168,7 @@ function makeUsersArray() {
         }
       }
     })
-  }
+  }*/
   
   function makeMaliciousArticle(user) {
     const maliciousArticle = {
@@ -196,7 +196,7 @@ function makeUsersArray() {
     const testComments = makeCommentsArray(testUsers, testArticles)
     return { testUsers, testArticles, testComments }
   }
-  
+  /*
   function cleanTables(db) {
     return db.transaction(trx =>
       trx.raw(
@@ -218,7 +218,7 @@ function makeUsersArray() {
       )
     )
   }
-  
+  */
   function seedArticlesTables(db, users, articles, comments=[]) {
     // use a transaction to group the queries and auto rollback on any failure
     return db.transaction(async trx => {
@@ -261,12 +261,12 @@ function makeUsersArray() {
     makeUsersArray,
     makeArticlesArray,
     makeExpectedArticle,
-    makeExpectedArticleComments,
+    //makeExpectedArticleComments,
     makeMaliciousArticle,
     makeCommentsArray,
   
     makeArticlesFixtures,
-    cleanTables,
+    //cleanTables,
     seedArticlesTables,
     seedMaliciousArticle,
   }

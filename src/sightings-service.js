@@ -16,11 +16,11 @@ const SightingsService = {
             .where({ id })
             .delete()
     },
-    /*updateSighting(knex, id, newItemFields) {
+    updateSighting(knex, id, newItemFields) {
         return knex('sightings')
             .where({ id })
             .update(newItemFields)
-    },*/
+    },
     insertSighting(knex, newSighting) {
         return knex
             .insert(newSighting)
