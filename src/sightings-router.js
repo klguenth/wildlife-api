@@ -71,9 +71,12 @@ sightingsRouter
     .get('/sighting/:sighting_id', (req, res, next) => {
         res.json(sighting.map(serializeSighting(res.sightings)))
     })
+    .put('/sighting/:sighting_id', (req, res, next) => {
+        //insert PUT code here
+    })
     .delete('/sighting/:sighting_id', (req, res, next) => {
         SightingsService.deleteSighting(
-            req.zpp.get('db'),
+            req.app.get('db'),
             req.params.sighting_id
         )
             .then(numRowsAffected => {

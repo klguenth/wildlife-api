@@ -4,21 +4,21 @@ const SightingsService = {
             .select('*')
             .from('sightings')
     },
-    getById(knex, id) {
+    getById(knex, sighting_id) {
         return knex
             .from('sightings')
             .select('*')
-            .where('id', id)
+            .where('sighting_id', sighting_id)
             .first()
     },
-    deleteSighting(knex, id) {
+    deleteSighting(knex, sighting_id) {
         return knex('sightings')
-            .where({ id })
+            .where({ sighting_id })
             .delete()
     },
-    updateSighting(knex, id, newItemFields) {
+    updateSighting(knex, sighting_id, newItemFields) {
         return knex('sightings')
-            .where({ id })
+            .where({ sighting_id })
             .update(newItemFields)
     },
     insertSighting(knex, newSighting) {
