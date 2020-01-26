@@ -19,6 +19,7 @@ const serializeSighting = sighting => ({
 })
 
 sightingsRouter
+    //get all sightings
     .get('/sighting', jsonBodyParser, (req, res, next) => {
         const knex = req.app.get('db')
         SightingsService.getAllSightings(knex)
@@ -27,6 +28,7 @@ sightingsRouter
             })
             .catch(next)
     })
+    //create new sighting
     .post('/sighting', jsonBodyParser, (req, res, next) => {
         const { title, species, brief_description, detailed_description, sighting_date, sighting_location } = req.body
         console.log(req.body);
@@ -68,12 +70,33 @@ sightingsRouter
         })
         .catch(next)
     })
+    //retrieve sighting with specified id
     .get('/sighting/:sighting_id', (req, res, next) => {
         res.json(sighting.map(serializeSighting(res.sightings)))
     })
-    .put('/sighting/:sighting_id', (req, res, next) => {
-        //insert PUT code here
+    //edit existing sighting
+    .patch('/sighting/:sighting_id', jsonBodyParser, (req, res, next) => {
+        const { title, species, brief_description, detailed_description, sighting_date, sighting_location } = req.body
+        const sightingToUpdate = { title, species, brief_description, detailed_description, sighting_date, sighting_location }
+
+        const numberOfValues = Object.values(sightingToUpdate).filter(Boolean).length
+        if (numberOfValues === 0)
+            return res.status(400).json({
+                error: {
+                    message: `Request body must contain 'title', 'species', 'brief_description', 'detailed_description', 'sighting_date', or 'sighting_location'`
+                }
+            })
+        SightingsService.updateSighting(
+            req.app.get('db'),
+            req.params.sighting_id,
+            sightingToUpdate
+        )
+            .then(numRowsAffected => {
+                res.status(204).end()
+            })
+            .catch(next)
     })
+    //delete sighting of specified id
     .delete('/sighting/:sighting_id', (req, res, next) => {
         SightingsService.deleteSighting(
             req.app.get('db'),
