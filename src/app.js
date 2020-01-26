@@ -8,6 +8,8 @@ const usersRouter = require('./users-router');
 const UsersService = require('./users-service.js');
 const authRouter = require('./auth-router');
 const AuthService = require('./auth-service.js');
+const sightingsRouter = require('./sightings-router.js');
+const SightingsService = require('./sightings-service.js');
 const knex = require('knex');
 
 const app = express()
@@ -29,15 +31,7 @@ app.use(helmet())
 app.use(cors())
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
-
-/*app.get('/users', (req, res, next) => {
-    const knexInstance = req.app.get('db')
-    UsersService.hasUserWithUserName(knexInstance, user_name)
-        .then(user => {
-            res.json(user)
-        })
-        .catch(next)
-})*/
+app.use('/api/sightings', sightingsRouter)
 
 app.use(function errorHandler(error, req, res, next) {
     let response
