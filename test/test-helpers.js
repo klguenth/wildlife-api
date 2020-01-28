@@ -196,6 +196,21 @@ function makeUsersArray() {
     const testComments = makeCommentsArray(testUsers, testArticles)
     return { testUsers, testArticles, testComments }
   }
+
+  function seedUsers(db, users) {
+      const preppedUsers = users.map(user => ({
+        ...user,
+        password: bcrypt.hashSync(user.password, 1)
+      }))
+      return db.into('users').insert(preppedUsers)
+        .then(() =>
+          // update the auto sequence to stay in sync
+          db.raw(
+            `SELECT setval('blogful_users_id_seq', ?)`,
+            [users[users.length - 1].id],
+          )
+        )
+    }
   /*
   function cleanTables(db) {
     return db.transaction(trx =>
