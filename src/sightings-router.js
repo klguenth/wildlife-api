@@ -10,12 +10,12 @@ const sightings = [];
 
 const serializeSighting = sighting => ({
     id: sighting.sighting_id,
-    title:xss(sighting.title),
-    species: sighting.species,
-    brief_description: sighting.brief_description,
-    detailed_description: sighting.detailed_description,
+    title: xss(sighting.title),
+    species: xss(sighting.species),
+    brief_description: xss(sighting.brief_description),
+    detailed_description: xss(sighting.detailed_description),
     sighting_date: sighting.sighting_date,
-    sighting_location: sighting.sighting_location
+    sighting_location: xss(sighting.sighting_location)
 })
 
 sightingsRouter
@@ -72,7 +72,7 @@ sightingsRouter
     })
     //retrieve sighting with specified id
     .get('/sighting/:sighting_id', (req, res, next) => {
-        res.json(sighting.map(serializeSighting(res.sightings)))
+        res.json(serializeSighting(res.sighting))
     })
     //edit existing sighting
     .patch('/sighting/:sighting_id', jsonBodyParser, (req, res, next) => {
@@ -91,10 +91,10 @@ sightingsRouter
             req.params.sighting_id,
             sightingToUpdate
         )
-            .then(numRowsAffected => {
-                res.status(204).end()
-            })
-            .catch(next)
+        .then(numRowsAffected => {
+            res.status(204).end()
+        })
+        .catch(next)
     })
     //delete sighting of specified id
     .delete('/sighting/:sighting_id', (req, res, next) => {
