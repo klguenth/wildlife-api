@@ -1,28 +1,26 @@
+const bcrypt = require('bcrypt');
+
 function makeUsersArray() {
     return [
       {
-        id: 1,
         user_name: 'test-user-1',
         full_name: 'Test user 1',
         password: 'password',
         date_created: new Date('2029-01-22T16:28:32.615Z'),
       },
       {
-        id: 2,
         user_name: 'test-user-2',
         full_name: 'Test user 2',
         password: 'password',
         date_created: new Date('2029-01-22T16:28:32.615Z'),
       },
       {
-        id: 3,
         user_name: 'test-user-3',
         full_name: 'Test user 3',
         password: 'password',
         date_created: new Date('2029-01-22T16:28:32.615Z'),
       },
       {
-        id: 4,
         user_name: 'test-user-4',
         full_name: 'Test user 4',
         password: 'password',
@@ -206,7 +204,7 @@ function makeUsersArray() {
         .then(() =>
           // update the auto sequence to stay in sync
           db.raw(
-            `SELECT setval('blogful_users_id_seq', ?)`,
+            `SELECT setval('user_id', ?)`,
             [users[users.length - 1].id],
           )
         )
@@ -282,6 +280,7 @@ function makeUsersArray() {
   
     makeArticlesFixtures,
     //cleanTables,
+    seedUsers,
     seedArticlesTables,
     seedMaliciousArticle,
   }

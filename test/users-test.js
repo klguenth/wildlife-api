@@ -1,7 +1,8 @@
-const app = require('../src/users-router.js')
-const helpers = require('./test-helpers')
-const knex = require('knex')
-const express = require('express')
+const app = require('../src/users-router.js');
+const helpers = require('./test-helpers');
+const knex = require('knex');
+const express = require('express');
+const bcrypt = require('bcrypt');
 
 describe('Users Endpoints', function() {
     let db
