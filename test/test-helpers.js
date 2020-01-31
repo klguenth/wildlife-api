@@ -32,49 +32,20 @@ function makeUsersArray() {
   function makeSightingsArray() {
     return [
         {
-            id: 1,
             title: 'Title One',
             species: 'Humpback Whale',
             brief_description: 'Brief Description Text',
             detailed_description: 'Detailed Description Text',
-            sighting_date: 2020-1-29,
+            sighting_date: "2020-01-29T06:00:00.000Z",
             sighting_location: 'San Francisco, CA'
         },
         {
-            id: 2,
             title: 'Title Two',
             species: 'Northern Sea Otter',
             brief_description: 'Brief Description Text',
             detailed_description: 'Detailed Description Text',
-            sighting_date: 2020-1-15,
+            sighting_date: "2020-01-29T06:00:00.000Z",
             sighting_location: 'Monterey, CA'
-        },
-        {
-            id: 3,
-            title: 'Title Three',
-            species: 'Right Whale',
-            brief_description: 'Brief Description Text',
-            detailed_description: 'Detailed Description Text',
-            sighting_date: 2019-10-23,
-            sighting_location: 'Cocoa Beach, FL'
-        },
-        {
-            id: 4,
-            title: 'Title Four',
-            species: 'Florida Manatee',
-            brief_description: 'Brief Description Text',
-            detailed_description: 'Detailed Description Text',
-            sighting_date: 2019-8-30,
-            sighting_location: 'Crystal River, FL'
-        },
-        {
-            id: 5,
-            title: 'Title Five',
-            species: 'Atlantic Bottlenose Dolphin',
-            brief_description:'Brief Description Text',
-            detailed_description: 'Detailed Description Text',
-            sighting_date: 2019-7-11,
-            sighting_location: 'Sanibel Island, FL'
         }
     ]
 }
@@ -88,7 +59,6 @@ function makeUsersArray() {
       .length
   
     return {
-      id: sighting.id,
       title: sighting.title,
       species: sighting.species,
       brief_description: sighting.brief_description,
@@ -100,7 +70,6 @@ function makeUsersArray() {
   
   function makeMaliciousSighting(user) {
     const maliciousSighting = {
-      id: 911,
       title: 'I am malicious<script>alert("xss");</script>',
       species: 'The worst species',
       brief_description: 'I am bad news bears',
@@ -168,7 +137,7 @@ function makeUsersArray() {
       // update the auto sequence to match the forced id values
       await Promise.all([
         trx.raw(
-          `SELECT setval('users_id_seq', ?)`,
+          `SELECT setval('user_id_seq', ?)`,
           [users[users.length - 1].id],
         ),
         trx.raw(

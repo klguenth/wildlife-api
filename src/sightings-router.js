@@ -9,7 +9,7 @@ const jsonBodyParser = express.json()
 const sightings = [];
 
 const serializeSighting = sighting => ({
-    id: sighting.sighting_id,
+    sighting_id: sighting.sighting_id,
     title: xss(sighting.title),
     species: xss(sighting.species),
     brief_description: xss(sighting.brief_description),
@@ -20,7 +20,7 @@ const serializeSighting = sighting => ({
 
 sightingsRouter
     //get all sightings
-    .get('/sighting', jsonBodyParser, (req, res, next) => {
+    .get('/', jsonBodyParser, (req, res, next) => {
         const knex = req.app.get('db')
         SightingsService.getAllSightings(knex)
             .then(sightings => {
@@ -29,9 +29,8 @@ sightingsRouter
             .catch(next)
     })
     //create new sighting
-    .post('/sighting', jsonBodyParser, (req, res, next) => {
+    .post('/', jsonBodyParser, (req, res, next) => {
         const { title, species, brief_description, detailed_description, sighting_date, sighting_location } = req.body
-        console.log(req.body);
         const newSighting = { title, species, brief_description, detailed_description, sighting_date, sighting_location }
         sightings.push(newSighting)
 
@@ -54,7 +53,7 @@ sightingsRouter
     })
 
 sightingsRouter
-    .all('/sighting/:sighting_id', (req, res, next) => {
+    .all('/:sighting_id', (req, res, next) => {
         SightingsService.getById(
             req.app.get('db'),
             req.params.sighting_id
@@ -71,11 +70,11 @@ sightingsRouter
         .catch(next)
     })
     //retrieve sighting with specified id
-    .get('/sighting/:sighting_id', (req, res, next) => {
+    .get('/:sighting_id', (req, res, next) => {
         res.json(serializeSighting(res.sighting))
     })
     //edit existing sighting
-    .patch('/sighting/:sighting_id', jsonBodyParser, (req, res, next) => {
+    .patch('/:sighting_id', jsonBodyParser, (req, res, next) => {
         const { title, species, brief_description, detailed_description, sighting_date, sighting_location } = req.body
         const sightingToUpdate = { title, species, brief_description, detailed_description, sighting_date, sighting_location }
 
@@ -97,7 +96,7 @@ sightingsRouter
         .catch(next)
     })
     //delete sighting of specified id
-    .delete('/sighting/:sighting_id', (req, res, next) => {
+    .delete('/:sighting_id', (req, res, next) => {
         SightingsService.deleteSighting(
             req.app.get('db'),
             req.params.sighting_id
