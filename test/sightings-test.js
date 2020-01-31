@@ -3,13 +3,14 @@ const helpers = require('./test-helpers');
 const knex = require('knex');
 const express = require('express');
 const bcrypt = require('bcrypt');
+const { makeSightingsArray } = require('./sightings-helpers.js')
 
 describe('Sightings Endpoints', function() {
     let db
     let app = express();
     
-    const { testSightings } = helpers.makeArticlesFixtures()
-    const testSightings = testSightings[0]
+    //const { testSightings } = makeSightingsArray()
+    //const testSightings = testSightings[0]
 
     before('make knex instance', () => {
         db = knex({
@@ -62,7 +63,6 @@ describe('Sightings Endpoints', function() {
         })
 
         context('Given there are sightings in the database', () => {
-            const testSightings = makeSightingsArray()
 
             beforeEach('insert sightings', () => {
                 return db

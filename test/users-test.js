@@ -8,7 +8,7 @@ describe('Users Endpoints', function() {
     let db
     let app = express();
     
-    const { testUsers } = helpers.makeArticlesFixtures()
+    const { testUsers } = helpers.makeSightingsFixtures()
     const testUser = testUsers[0]
 
     before('make knex instance', () => {
