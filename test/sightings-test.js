@@ -90,7 +90,7 @@ describe('Sightings Endpoints', function() {
                 species: 'test species',
                 brief_description: 'test brief description',
                 detailed_description: 'test detailed description',
-                sighting_date: '2020-01-23',
+                sighting_date: new Date('2029-01-22T16:28:32.615Z'),
                 sighting_location: 'test location'
             }
             return supertest(app)
@@ -104,13 +104,12 @@ describe('Sightings Endpoints', function() {
                     expect(res.body.detailed_description).to.eql(newSighting.detailed_description)
                     expect(res.body.sighting_date).to.eql(newSighting.sighting_date)
                     expect(res.body.sighting_location).to.eql(newSighting.sighting_location)
-                    //expect(res.body).to.have.property('id')
-                    //expect(res.headers.location).to.eql(`/sightings/${res.body.id}`)
+                    expect(res.body).to.have.property('sighting_id')
                 })
-                .then(res => 
+                .then(postRes => 
                     supertest(app)
-                        .get(`/api/sightings/${res.body.id}`)
-                        .expect(res.body)
+                        .get(`/api/sightings/${postRes.body.sighting_id}`)
+                        .expect(postRes.body)
                 )
         })
 
