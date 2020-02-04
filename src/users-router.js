@@ -6,6 +6,7 @@ const usersRouter = express.Router()
 const jsonBodyParser = express.json()
 
 usersRouter
+//POST to create user
   .post('/', jsonBodyParser, (req, res, next) => {
     const { password, user_name, full_name } = req.body
     console.log(req.body);
@@ -15,7 +16,6 @@ usersRouter
           error: `Missing '${field}' in request body`
         })
     }
-    // TODO: check user_name doesn't start with spaces
 
     const passwordError = UsersService.validatePassword(password)
 

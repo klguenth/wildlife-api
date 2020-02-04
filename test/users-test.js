@@ -25,6 +25,7 @@ describe('Users Endpoints', function() {
 
     //afterEach('cleanup', () => helpers.cleanTables(db))
 
+    //test POST to create user
     describe(`POST /api/users`, () => {
         context(`User Validation`, () => {
             beforeEach('insert users', () =>
