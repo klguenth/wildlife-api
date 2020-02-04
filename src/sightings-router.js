@@ -54,8 +54,9 @@ sightingsRouter
 
 sightingsRouter
     .all('/:sighting_id', (req, res, next) => {
+        const knex = req.app.get('db')
         SightingsService.getById(
-            req.app.get('db'),
+            knex,
             req.params.sighting_id
         )
         .then(sighting => {

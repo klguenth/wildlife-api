@@ -104,6 +104,7 @@ describe('Sightings Endpoints', function() {
                     expect(res.body.detailed_description).to.eql(newSighting.detailed_description)
                     expect(res.body.sighting_date).to.eql(newSighting.sighting_date)
                     expect(res.body.sighting_location).to.eql(newSighting.sighting_location)
+                    expect(res.body).to.have.property('sighting_id')
                     const expected = new Date().toLocaleString()
                     const actual = new Date(res.body.sighting_date).toLocaleString()
                     expect(actual).to.eql(expected)
