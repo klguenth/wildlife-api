@@ -100,13 +100,13 @@ function makeUsersArray() {
         password: bcrypt.hashSync(user.password, 1)
       }))
       return db.into('users').insert(preppedUsers)
-        .then(() =>
-          // update the auto sequence to stay in sync
+        .then(() => {})
+          /*// update the auto sequence to stay in sync
           db.raw(
             `SELECT setval('user_id', ?)`,
-            [users[users.length - 1].id],
+            users.length,
           )
-        )
+        )*/
     }
   
   function cleanTables(db) {

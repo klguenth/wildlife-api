@@ -1,13 +1,13 @@
-const app = require('../src/users-router.js');
+const app = require('../src/app.js');
 const helpers = require('./test-helpers');
 const knex = require('knex');
 const express = require('express');
 const bcrypt = require('bcrypt');
 
 describe('Users Endpoints', function() {
-    let db
-    let app = express();
     
+    let db
+
     const { testUsers } = helpers.makeSightingsFixtures()
     const testUser = testUsers[0]
 
@@ -37,9 +37,9 @@ describe('Users Endpoints', function() {
 
             requiredFields.forEach(field => {
                 const registerAttemptBody = {
-                    user_name: 'test user_name',
-                    password: 'test password',
-                    full_name: 'test full_name',
+                    user_name: 'username',
+                    password: 'password1',
+                    full_name: 'fullname',
                 }
 
                 it(`response with 400 required error when '${field}' is missing`, () => {
@@ -63,7 +63,7 @@ describe('Users Endpoints', function() {
                 return supertest(app)
                     .post('/api/users')
                     .send(userShortPassword)
-                    .expect(400, { error: `Password must be longer than 8 characters` })
+                    .expect(400, { error: `Password must contain at least one upper case, one lower case, one number and one special character` })
             })
 
             it(`responds 400 'Password must be less than 72 characters' when long password`, () => {
@@ -113,7 +113,7 @@ describe('Users Endpoints', function() {
                 return supertest(app)
                     .post('/api/users')
                     .send(userPasswordNotComplex)
-                    .expect(400, { error: `Password must contain 1 uppercase, 1 lowercase, number, and special character` })
+                    .expect(400, { error: `Password must contain at least one upper case, one lower case, one number and one special character` })
             })
 
             it(`responds 400 'User name already taken' when user_name isn't unique`, () => {

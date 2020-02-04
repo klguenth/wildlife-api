@@ -95,7 +95,7 @@ describe('Sightings Endpoints', function() {
             }
             return supertest(app)
                 .post('/api/sightings')
-                .send({newSighting})
+                .send(newSighting)
                 .expect(201)
                 .expect(res => {
                     expect(res.body.title).to.eql(newSighting.title)
@@ -127,13 +127,13 @@ describe('Sightings Endpoints', function() {
                 sighting_date: '2020-01-23',
                 sighting_location: 'test location'
             }
-            it(`responds with 404 and an error message when the '${field}', is missing`, () => {
+            it(`responds with 400 and an error message when the '${field}', is missing`, () => {
                 delete newSighting[field]
 
                 return supertest(app)
                     .post('/api/sightings')
                     .send(newSighting)
-                    .expect(404, {
+                    .expect(400, {
                         error: { message: `Missing '${field}' in request body` }
                     })
             })
