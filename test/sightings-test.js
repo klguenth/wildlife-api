@@ -90,7 +90,7 @@ describe('Sightings Endpoints', function() {
                 species: 'test species',
                 brief_description: 'test brief description',
                 detailed_description: 'test detailed description',
-                sighting_date: new Date('2029-01-22T16:28:32.615Z'),
+                sighting_date: new Date('2029-01-22'),
                 sighting_location: 'test location'
             }
             return supertest(app)
@@ -102,12 +102,14 @@ describe('Sightings Endpoints', function() {
                     expect(res.body.species).to.eql(newSighting.species)
                     expect(res.body.brief_description).to.eql(newSighting.brief_description)
                     expect(res.body.detailed_description).to.eql(newSighting.detailed_description)
-                    //expect(res.body.sighting_date).to.eql(newSighting.sighting_date)
+                    expect(res.body.sighting_date).to.eql(newSighting.sighting_date)
                     expect(res.body.sighting_location).to.eql(newSighting.sighting_location)
                     expect(res.body).to.have.property('sighting_id')
-                    //const expected = new Date().toLocaleString()
-                    //const actual = new Date('res.body.sighting_date').toLocaleString()
-                    //expect(actual).to.eql(expected)
+                    const expected = new Date().toLocaleDateString()
+                    console.log(expected);
+                    const actual = new Date('res.body.sighting_date').toLocaleDateString()
+                    console.log(actual);
+                    expect(actual).to.eql(expected)
                 })
                 .then(postRes => 
                     supertest(app)
