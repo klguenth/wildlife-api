@@ -9,7 +9,6 @@ usersRouter
 //POST to create user
   .post('/', jsonBodyParser, (req, res, next) => {
     const { password, user_name, full_name } = req.body
-    console.log(req.body);
     for (const field of ['full_name', 'user_name', 'password']) {
       if (!req.body[field])
         return res.status(400).json({

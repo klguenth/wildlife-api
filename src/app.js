@@ -22,7 +22,6 @@ const db = knex({
     client: 'pg',
     connection: DB_URL,
 })
-console.log('knex and driver installed correctly');
 
 app.set('db', db)
 
