@@ -11,6 +11,12 @@ const SightingsService = {
             .where('sighting_id', sighting_id)
             .first()
     },
+    getBySpecies(knex, species) {
+        return knex
+            .from('sightings')
+            .select('*')
+            .where('species', species)
+    },
     deleteSighting(knex, sighting_id) {
         return knex('sightings')
             .where({ sighting_id })

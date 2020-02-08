@@ -1,9 +1,9 @@
 require('dotenv').config()
+const { NODE_ENV, PORT, DATABASE_URL } = require('./config');
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const helmet = require('helmet');
-const { NODE_ENV, PORT, DB_URL } = require('./config');
 const usersRouter = require('./users-router');
 const UsersService = require('./users-service.js');
 const authRouter = require('./auth-router');
@@ -20,7 +20,7 @@ const morganOption = (NODE_ENV === 'production')
 
 const db = knex({
     client: 'pg',
-    connection: DB_URL,
+    connection: DATABASE_URL,
 })
 
 app.set('db', db)

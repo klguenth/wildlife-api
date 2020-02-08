@@ -102,10 +102,24 @@ sightingsRouter
             req.app.get('db'),
             req.params.sighting_id
         )
-            .then(numRowsAffected => {
-                res.status(204).end()
-            })
-            .catch(next)
+        .then(numRowsAffected => {
+            res.status(204).end()
+        })
+        .catch(next)
+    })
+
+sightingsRouter
+    .get('/species/:species', (req, res, next) => {
+        const knex = req.app.get('db')
+        const species = req.params.species
+        SightingsService.getBySpecies(
+            knex,
+            species
+        )
+        .then(sightings => {
+            res.json(sightings.map(serializeSighting))
+        })
+        .catch(next)
     })
 
 module.exports = sightingsRouter;
