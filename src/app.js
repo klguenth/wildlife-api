@@ -31,6 +31,12 @@ app.use(cors())
 app.use('/api/users', usersRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/sightings', sightingsRouter)
+app.get('/', (req, res, next) => {
+    res.send('Hello World');
+})
+app.use('*', (req, res, next) => {
+    res.send('It ain\'t here!');
+})
 
 app.use(function errorHandler(error, req, res, next) {
     let response
