@@ -5,7 +5,7 @@ module.exports = {
   "driver": "pg",
   "connectionString": (process.env.NODE_ENV 
     ? process.env.TEST_DATABASE_URL
-    : process.env.DB_URL
+    : process.env.DATABASE_URL
   ),
-  "validateChecksums": false, // Set to false to skip validation
+  "validateChecksums": false, // Set to false to skip validation,
 }
