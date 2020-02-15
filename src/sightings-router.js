@@ -30,9 +30,7 @@ sightingsRouter
     })
     //create new sighting
     .post('/', jsonBodyParser, (req, res, next) => {
-        const { title, species, brief_description, detailed_description, sighting_date, sighting_location } = req.body
-        const newSighting = { title, species, brief_description, detailed_description, sighting_date, sighting_location }
-        sightings.push(newSighting)
+        const newSighting = req.body
 
         for ( const [key, value] of Object.entries(newSighting))
             if (value == null)

@@ -35,7 +35,7 @@ app.get('/', (req, res, next) => {
     res.send('Hello World');
 })
 app.use('*', (req, res, next) => {
-    res.send('It ain\'t here!');
+    res.status(404).send('It ain\'t here!');
 })
 
 app.use(function errorHandler(error, req, res, next) {
