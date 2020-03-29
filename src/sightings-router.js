@@ -31,12 +31,13 @@ sightingsRouter
     //create new sighting
     .post('/', jsonBodyParser, (req, res, next) => {
         const newSighting = req.body
-
-        for ( const [key, value] of Object.entries(newSighting))
+        console.log(newSighting);
+        for (const [key, value] of Object.entries(newSighting))
             if (value == null)
                 return res.status(400).json({
                     error: { message: `Missing '${key}' in request body` }
                 })
+
         SightingsService.insertSighting(
             req.app.get('db'),
             newSighting
