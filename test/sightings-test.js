@@ -83,7 +83,7 @@ describe('Sightings Endpoints', function() {
     //     })
     // })
 
-    describe(`POST /api/sightings`, () => {
+    describe(`POST /`, () => {
         it(`creates a sighting, responding with 201 and the new sighting`, () => {
             const newSighting = {
                 title: 'test title',
@@ -115,7 +115,7 @@ describe('Sightings Endpoints', function() {
 
         const requiredFields = ['title', 'species', 'brief_description', 'detailed_description', 'sighting_date', 'sighting_location']
 
-        requiredFields.forEach(field => {
+        requiredFields.forEach(key => {
             const newSighting = {
                 title: 'test title',
                 species: 'test species',
@@ -124,13 +124,15 @@ describe('Sightings Endpoints', function() {
                 sighting_date: '2020-01-23',
                 sighting_location: 'test location'
             }
-            it(`responds with 400 and an error message when the '${field}', is missing`, () => {
-                delete newSighting[field]
+            it(`responds with 400 and an error message when the '${key}', is missing`, () => {
+                for (const [key, value] of Object.entries(newSighting))
+                    if (value == null)
+                // delete newSighting[field]
                 return supertest(app)
                     .post('/api/sightings')
                     .send(newSighting)
                     .expect(400, {
-                        error: { message: `Missing '${field}' in request body` }
+                        error: { message: `Missing '${key}' in request body` }
                     })
             })
         })
