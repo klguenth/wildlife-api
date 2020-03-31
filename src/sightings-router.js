@@ -22,6 +22,7 @@ sightingsRouter
     //get all sightings
     .get('/', jsonBodyParser, (req, res, next) => {
         const knex = req.app.get('db')
+        console.log(res)
         SightingsService.getAllSightings(knex)
             .then(sightings => {
                 res.json(sightings.map(serializeSighting))
