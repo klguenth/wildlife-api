@@ -22,7 +22,6 @@ sightingsRouter
     //get all sightings
     .get('/', jsonBodyParser, (req, res, next) => {
         const knex = req.app.get('db')
-        console.log(res)
         SightingsService.getAllSightings(knex)
             .then(sightings => {
                 res.json(sightings.map(serializeSighting))
@@ -37,7 +36,6 @@ sightingsRouter
                 return res.status(400).json({
                     error: { message: `Missing '${key}' in request body` }
                 })
-        console.log(newSighting);
         SightingsService.insertSighting(
             req.app.get('db'),
             newSighting
